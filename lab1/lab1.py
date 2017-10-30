@@ -14,7 +14,7 @@ def table(seq, sanity_check = False):
         else:
                 j=fail[j-1]+1
                 if seq[i]==seq[j]:
-                    fail.append(0)
+                    fail.append(j)
                     i=i+1
                     j=j+1
 
