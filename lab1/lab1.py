@@ -1,7 +1,7 @@
 from datetime import datetime, date, time
 
 def table(seq, sanity_check = False):
-    fail=[-1]
+    fail=[-1]
     i,j=1,0
     while i<= len(seq)-1:
         if seq[i]==seq[j]:
