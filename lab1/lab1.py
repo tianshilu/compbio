@@ -45,19 +45,20 @@ def table(seq, sanity_check = False):
 def getoverlap(s1,s2):
     s1_len,s2_len=len(s1),len(s2)
     a,b=0,0
+    fail2=table(s2)
     while a < s1_len and b < s2_len-1:
         if s1[a]==s2[b]:
             a=a+1
             b=b+1
-            if b>=40:
+            if b>=40 and a==s1_len:
                 return a-b
         elif b==0:
             a=a+1
-        else:
-            fail=table(s2, True)
-            b=fail[b-1]+1
+        else:
+            b=fail2[b-1]+1
 
     a,b=0,0
+    fail1=table(s1)
     while a<=s1_len-1 and b<=s2_len-1:
         if s1[a]==s2[b]:
             a=a+1
@@ -66,11 +67,59 @@ def getoverlap(s1,s2):
                 return a-b
         elif a==0:
             b=b+1
-        else:
-            fail=table(s1, True)
-            a=fail[a-1]+1
+        else:
+            a=fail1[a-1]+1
     return None             
-
+'''
+def simple_overlap(s1, s2):
+    # Implement the brute-force overlap function
+    s1_len,s2_len=len(s1),len(s2)
+
+    for p in range(s1_len):
+
+        same=True
+
+        for q in range(s2_len-p):
+
+            if s1[p+q]!=s2[q]:
+
+                same=False
+
+                break
+
+        if same:
+
+            offset=p
+
+            length=s2_len-p
+
+            if length >= 40:
+                return offset
+
+    for q in range(s2_len):
+
+        same=True
+
+        for p in range(s1_len-q):
+
+            if s1[p]!=s2[p+q]:
+                same=False
+
+                break
+
+        if same:
+
+            offset=q
+
+            length=s2_len-q
+
+            if length >= 40:
+                    return 0-offset
+
+
+    return None
+
+'''
 
 
 def rc(s):
@@ -87,7 +136,7 @@ def rc(s):
 
 seqs1, seqs2, seq, seqid = [], [], '', ''
 
-for line in open ('sample_data/sample.fasta'):
+for line in open ('lab01.fasta'):
 
     line=line.strip()
 
@@ -131,9 +180,21 @@ for s1 in range(len(seqs1)):
 
         s2_id=seqs2[s2][0]
 
-        over1=getoverlap(seqs1[s1][1],seqs1[s2][1])
-
-        over2=getoverlap(seqs1[s1][1],seqs2[s2][1])
+        over1=getoverlap(seqs1[s1][1],seqs1[s2][1])
+        over2=getoverlap(seqs1[s1][1],seqs2[s2][1])
+'''
+        sanity_check = True
+        if sanity_check :
+            over1_cmp=simple_overlap(seqs1[s1][1],seqs1[s2][1])
+            over2_cmp=simple_overlap(seqs1[s1][1],seqs2[s2][1])
+        if over1!=over1_cmp:
+            print over1,over1_cmp,seqs1[s1][0],seqs1[s2][0]
+        if over2!=over2_cmp:
+            print [over2,over2_cmp,seqs1[s1][0],seqs2[s2][0]]
+        assert over1==over1_cmp
+        assert over2==over2_cmp
+'''
+        
         #print '%s-%s_%s'%(str(datetime.now()),s1_id,s2_id)
         
         if over1!=None:
