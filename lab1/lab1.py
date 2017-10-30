@@ -1,6 +1,6 @@
-from datetime import datetime, date, time
-
-def table(seq, sanity_check = False):
+from datetime import datetime, date, time
+
+def table(seq, sanity_check = False):
     fail=[-1]
     i,j=1,0
     while i<= len(seq)-1:
@@ -45,7 +45,7 @@ def table(seq, sanity_check = False):
 def getoverlap(s1,s2):
     s1_len,s2_len=len(s1),len(s2)
     a,b=0,0
-    while a<=s1_len-1 and b<=s2_len-1:
+    while a < s1_len and b < s2_len-1:
         if s1[a]==s2[b]:
             a=a+1
             b=b+1
