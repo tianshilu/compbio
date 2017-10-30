@@ -1,0 +1,14 @@
+Emacs commands
+To exit: ctrl+x,ctrl+c
+
+
+Git commands
+If you want to add a file:
+   git add A.txt (let Git know you'll add A.txt)
+   git commit -m "Added A.txt" (Ask Git to store A.txt in its local repository
+   git push (Ask Git to upload the change to a server so that others can have access to it)
+
+If you change/modify a file:
+   git add a file (let Git know you changed a file)
+   git commit -m "with some message"
+   git push
